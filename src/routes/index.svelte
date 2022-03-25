@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import Login from '../components/login.svelte';
 	import Logout from '../components/logout.svelte';
+	import Map from '../components/map.svelte';
 	import { onMount } from 'svelte';
 	import { user } from '../stores';
 
@@ -41,3 +42,4 @@
 {:else}
 	<Login />
 {/if}
+<Map />
