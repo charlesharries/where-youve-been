@@ -23,7 +23,7 @@
 		// If that didn't succeed, and we've just arrived back from the
 		// oAuth flow, then get the user from the API.
 		if (!$user?.athlete && code) {
-			const data = await fetch(`http://localhost:3000/api/user?code=${code}`).then((r) => r.json());
+			const data = await fetch(`/api/user?code=${code}`).then((r) => r.json());
 
 			if (data?.athlete) {
 				$user = data;
