@@ -11,6 +11,7 @@ specifiers:
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.2.1
   localforage: ^1.10.0
+  localforage-startswith: ^1.4.0
   mapbox-gl: ^2.7.1
   prettier: ^2.5.1
   prettier-plugin-svelte: ^2.5.0
@@ -23,6 +24,7 @@ specifiers:
 dependencies:
   '@mapbox/polyline': 1.1.1
   localforage: 1.10.0
+  localforage-startswith: 1.4.0
   mapbox-gl: 2.7.1
 
 devDependencies:
@@ -1375,6 +1377,12 @@ packages:
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+    dev: false
+
+  /localforage-startswith/1.4.0:
+    resolution: {integrity: sha1-zaNQHbuMx2tjiXrgkxfpym/ckhw=}
+    dependencies:
+      localforage: 1.10.0
     dev: false
 
   /localforage/1.10.0:

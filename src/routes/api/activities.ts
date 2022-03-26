@@ -1,9 +1,9 @@
 import type { RequestHandler } from "@sveltejs/kit";
 
-async function getActivities(userId, accessToken) {
-  const url = new URL(`https://www.strava.com/api/v3/athletes/${userId}/activities`)
-
-  console.log({ userId, accessToken });
+async function getActivities(accessToken, page = '1') {
+  const url = new URL(`https://www.strava.com/api/v3/athlete/activities`)
+  url.searchParams.append('per_page', '200');
+  url.searchParams.append('page', page);
 
   return fetch(url.toString(), {
     method: 'GET',
@@ -12,10 +12,10 @@ async function getActivities(userId, accessToken) {
 }
 
 export const get: RequestHandler = async ({ url }) => {
-  const userId = url.searchParams.get('user_id');
   const accessToken = url.searchParams.get('access_token');
+  const page = url.searchParams.get('page');
 
-  const res = await getActivities(userId, accessToken);
+  const res = await getActivities(accessToken, page);
   const body = await res.json();
 
   return {

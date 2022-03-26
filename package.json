@@ -33,6 +33,7 @@
   "dependencies": {
     "@mapbox/polyline": "^1.1.1",
     "localforage": "^1.10.0",
+    "localforage-startswith": "^1.4.0",
     "mapbox-gl": "^2.7.1"
   }
 }

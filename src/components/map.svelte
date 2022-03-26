@@ -3,8 +3,10 @@
 	import mapboxgl from 'mapbox-gl';
 	import polyline from '@mapbox/polyline';
 	import localforage from 'localforage';
+	import 'localforage-startswith';
 	import { onMount } from 'svelte';
 	import { map } from '../stores';
+	import type { Activity } from 'src/types';
 
 	let container: HTMLElement;
 	let line =
@@ -24,10 +26,12 @@
 			zoom: 7
 		});
 
-		const activities = await localforage.getItem<any[]>('activities');
-		if (activities?.length) {
+		const activities = await localforage.startsWith('activity_');
+		if (Object.keys(activities).length) {
 			$map.on('load', () => {
-				activities.forEach((activity) => {
+				Object.values(activities).forEach((activity: Activity) => {
+					if (!activity.map?.summary_polyline) return;
+
 					$map.addSource(`source_${activity.id}`, {
 						type: 'geojson',
 						data: {
