@@ -1,7 +1,7 @@
 <script lang="ts">
 	const clientID = import.meta.env.VITE_CLIENT_ID;
 	const appURL = import.meta.env.VITE_APP_URL;
-	const vercelURL = import.meta.env.VERCEL_URL;
+	const vercelURL = import.meta.env.VITE_VERCEL_URL;
 	const redirect = vercelURL || appURL;
 	import { user, auth } from '../stores';
 	import refreshUser from '../lib/refreshUser';
