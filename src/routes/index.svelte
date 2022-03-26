@@ -25,7 +25,7 @@
 			const data = await fetch(`/api/user?code=${code}`).then((r) => r.json());
 
 			if (data?.athlete) {
-				$user = data;
+				$user = { ...$user, ...data };
 				localforage.setItem('user', $user);
 			}
 		}
