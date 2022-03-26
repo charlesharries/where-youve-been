@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { user } from '../stores';
+	import { auth } from '../stores';
 
 	function handleLogout() {
-		localStorage.removeItem('user');
-		$user = null;
+		$auth = 'logged_out';
 	}
 </script>
 

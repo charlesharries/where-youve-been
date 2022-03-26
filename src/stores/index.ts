@@ -5,3 +5,5 @@ import { writable } from 'svelte/store';
 export const user = writable<User>(null);
 
 export const map = writable<mapboxgl.Map>(null);
+
+export const auth = writable<string>('logged_out');

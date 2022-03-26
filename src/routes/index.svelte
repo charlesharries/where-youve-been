@@ -5,12 +5,14 @@
 	import Logout from '../components/logout.svelte';
 	import Map from '../components/map.svelte';
 	import { onMount } from 'svelte';
-	import { user } from '../stores';
+	import { auth, user } from '../stores';
 	import FetchActivities from '../components/fetchActivities.svelte';
 	import type { User } from 'src/types';
 
 	let code = $page.url.searchParams.get('code');
-	$: isLoggedIn = Boolean($user?.athlete);
+	$: isLoggedIn = $auth === 'logged_in';
+
+	// Subscribe to our stores
 
 	async function login() {
 		// Try getting the user out of localStorage first
@@ -26,12 +28,16 @@
 
 			if (data?.athlete) {
 				$user = { ...$user, ...data };
-				localforage.setItem('user', $user);
+				$auth = 'logged_in';
 			}
 		}
 	}
 
-	onMount(login);
+	onMount(() => {
+		auth.subscribe((a) => localforage.setItem('auth', a));
+		user.subscribe((u) => localforage.setItem('user', u));
+		login();
+	});
 </script>
 
 <h1>Where you've been</h1>
@@ -39,7 +45,7 @@
 	<p>User: {$user.athlete.username}</p>
 	<FetchActivities />
 	<Logout />
+	<Map />
 {:else}
 	<Login />
 {/if}
-<Map />
