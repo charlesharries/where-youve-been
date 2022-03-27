@@ -2,7 +2,6 @@
 	import { user, auth } from '../stores';
 	import refreshUser from '../lib/refreshUser';
 	const clientID = import.meta.env.VITE_CLIENT_ID;
-	const appURL = import.meta.env.VITE_APP_URL;
 	const vercelURL = import.meta.env.VITE_VERCEL_URL;
 
 	let redirect = vercelURL;

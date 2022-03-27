@@ -5,6 +5,8 @@ import { map } from '../stores';
 
 export default function addToMap(activity: Activity) {
   const $map = get(map);
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const lineColor = isDarkMode ? '#bada55' : '#9400ba';
 
   if ($map.getSource(`source_${activity.id}`)) return;
   if (!activity.map?.summary_polyline) return;
@@ -27,7 +29,7 @@ export default function addToMap(activity: Activity) {
       'line-cap': 'round'
     },
     paint: {
-      'line-color': '#bada55',
+      'line-color': lineColor,
       'line-width': 3,
       'line-opacity': 1
     }
