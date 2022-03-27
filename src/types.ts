@@ -4,6 +4,8 @@ export interface User {
   athlete: {
     id: number;
     username: string;
+    firstname: string;
+    lastname: string;
   }
 }
 

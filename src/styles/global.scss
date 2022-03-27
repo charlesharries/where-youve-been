@@ -1,0 +1,88 @@
+:root {
+  --text: #444;
+  --faded: #aaa;
+  --background: #efefef;
+  --primary: #9400ba;
+  --active-outline: rgba(0, 0, 255, 0.3)
+  --shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #efefef;
+    --faded: #444;
+    --background: #222;
+    --primary: #bada55;
+    --shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+}
+
+html {
+  font-family: system-ui;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.button {
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgba(64, 68, 82, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(64, 68, 82, 0.08) 0px 2px 5px 0px;
+  background-color: var(--background);
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text);
+  text-decoration: none;
+
+  &[disabled] {
+    pointer-events: none;
+    color: var(--faded);
+  }
+
+  &:focus,
+  &:active,
+  input:focus + &,
+  input:active + & {
+    outline: 2px solid var(--primary);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid var(--faded);
+  }
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
+.h-md { height: 1rem; }
+.w-md { height: 1rem; }
+
+small {
+  font-size: 0.85rem;
+}
