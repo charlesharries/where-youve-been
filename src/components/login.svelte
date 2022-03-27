@@ -21,4 +21,4 @@
 	}
 </script>
 
-<a href={url} on:click={attemptLogin}>Log in</a>
+<a href={url} on:click={attemptLogin} class="button">Log in</a>

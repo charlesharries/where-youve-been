@@ -51,6 +51,7 @@ body {
   align-items: center;
   gap: 0.3rem;
   color: var(--text);
+  text-decoration: none;
 
   &[disabled] {
     pointer-events: none;

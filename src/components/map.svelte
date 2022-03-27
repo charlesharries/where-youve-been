@@ -4,24 +4,40 @@
 	import localforage from 'localforage';
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
-	import { map } from '../stores';
+	import { map, auth } from '../stores';
 	import addToMap from '../lib/addToMap';
+	import type { Unsubscriber } from 'svelte/store';
 
 	let container: HTMLElement;
 	let darkMode: MediaQueryList = null;
+	let authUnsubscribe: Unsubscriber = null;
 
 	const darkStyle = 'mapbox://styles/mapbox/dark-v10';
 	const lightStyle = 'mapbox://styles/mapbox/outdoors-v11';
 
 	function handleDarkModeChange(event: MediaQueryListEvent) {
-		if (!$map) return;
+		if (!$map.loaded()) return;
+
+		console.log('mode changed');
 		$map.setStyle(event.matches ? darkStyle : lightStyle);
 		initActivities();
 	}
 
+	async function clearActivities() {
+		if (!$map?.loaded()) return;
+
+		$map.getStyle().layers.forEach((l) => {
+			if (l.id.startsWith('activity_')) {
+				$map.removeLayer(l.id);
+			}
+		});
+	}
+
 	async function initActivities() {
+		if (!$map.loaded()) return;
+
 		const activities = await localforage.startsWith('activity_');
-		console.log(`initting ${Object.keys(activities).length} activities...`);
+		console.log(`initting ${Object.keys(activities).length} activities`);
 		if (Object.keys(activities).length) {
 			Object.values(activities).forEach(addToMap);
 		}
@@ -51,12 +67,19 @@
 		initActivities();
 
 		darkMode.addEventListener('change', handleDarkModeChange);
+		authUnsubscribe = auth.subscribe((a) => {
+			console.log({ a });
+			if (a === 'logged_out') clearActivities();
+			if (a === 'logged_in') initActivities();
+		});
 	});
 
 	onDestroy(() => {
 		if (darkMode) {
 			darkMode.removeEventListener('change', handleDarkModeChange);
 		}
+
+		if (typeof authUnsubscribe === 'function') authUnsubscribe();
 	});
 </script>
 

@@ -41,10 +41,5 @@
 	});
 </script>
 
-{#if isLoggedIn}
-	<Toolbar />
-{:else}
-	<Login />
-{/if}
-
+<Toolbar />
 <Map />

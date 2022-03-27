@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { user } from '../stores';
+	import { user, auth } from '../stores';
 	import ToolbarActions from '../components/toolbarActions.svelte';
 
 	let version = import.meta.env.VITE_APP_VERSION as string;
+	$: isLoggedIn = $auth === 'logged_in';
 </script>
 
 <div class="toolbar">
@@ -11,12 +12,14 @@
 		<span class="toolbar_version">v{version}</span>
 	</small>
 	<div class="toolbar_user">
-		<p>
-			<strong>
-				{$user.athlete.firstname}
-				{$user.athlete.lastname}
-			</strong>
-		</p>
+		{#if isLoggedIn}
+			<p>
+				<strong>
+					{$user.athlete.firstname}
+					{$user.athlete.lastname}
+				</strong>
+			</p>
+		{/if}
 	</div>
 	<div class="toolbar_actions">
 		<ToolbarActions />
