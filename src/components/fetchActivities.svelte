@@ -2,6 +2,7 @@
 	import { user } from '../stores';
 	import addToMap from '../lib/addToMap';
 	import localforage from 'localforage';
+	import refreshUser from '$lib/refreshUser';
 
 	let status = 'idle';
 	$: isLoading = status === 'loading';
@@ -15,7 +16,14 @@
 
 		while (hasNextPage) {
 			url.searchParams.set('page', `${currentPage}`);
-			const data = await fetch(url.toString()).then((r) => r.json());
+			const res = await fetch(url.toString());
+			if (res.status === 401) {
+				await refreshUser();
+				url.searchParams.set('access_token', $user.access_token);
+				continue;
+			}
+
+			const data = await res.json();
 
 			if (!Array.isArray(data) || data.length < 200) hasNextPage = false;
 
