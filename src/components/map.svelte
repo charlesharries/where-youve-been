@@ -18,7 +18,6 @@
 	function handleDarkModeChange(event: MediaQueryListEvent) {
 		if (!$map.loaded()) return;
 
-		console.log('mode changed');
 		$map.setStyle(event.matches ? darkStyle : lightStyle);
 		initActivities();
 	}
@@ -44,7 +43,7 @@
 	}
 
 	onMount(async () => {
-		darkMode = window.matchMedia('(prefers-color-scheme: dark');
+		darkMode = window.matchMedia('(prefers-color-scheme: dark)');
 		const isDarkMode = darkMode.matches;
 		if (typeof import.meta.env.VITE_MAPBOX_TOKEN === 'string') {
 			mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;

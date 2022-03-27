@@ -34,7 +34,6 @@
 
 	onMount(() => {
 		// Subscribe to stores so that state always gets synced to storage
-		console.log(import.meta);
 		auth.subscribe((a) => localforage.setItem('auth', a));
 		user.subscribe((u) => localforage.setItem('user', u));
 		login();
