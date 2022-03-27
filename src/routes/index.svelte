@@ -4,15 +4,13 @@
 	import Login from '../components/login.svelte';
 	import Logout from '../components/logout.svelte';
 	import Map from '../components/map.svelte';
+	import Toolbar from '../components/toolbar.svelte';
 	import { onMount } from 'svelte';
 	import { auth, user } from '../stores';
-	import FetchActivities from '../components/fetchActivities.svelte';
 	import type { User } from 'src/types';
 
 	let code = $page.url.searchParams.get('code');
 	$: isLoggedIn = $auth === 'logged_in';
-
-	// Subscribe to our stores
 
 	async function login() {
 		// Try getting the user out of localStorage first
@@ -34,18 +32,38 @@
 	}
 
 	onMount(() => {
+		// Subscribe to stores so that state always gets synced to storage
+		console.log(import.meta);
 		auth.subscribe((a) => localforage.setItem('auth', a));
 		user.subscribe((u) => localforage.setItem('user', u));
 		login();
 	});
 </script>
 
-<h1>Where you've been</h1>
 {#if isLoggedIn}
-	<p>User: {$user.athlete.username}</p>
-	<FetchActivities />
-	<Logout />
-	<Map />
+	<Toolbar />
 {:else}
 	<Login />
 {/if}
+
+<Map />
+
+<style lang="scss">
+	:global(:root) {
+		--text: #444;
+		--background: #efefef;
+	}
+
+	:global(body) {
+		margin: 0;
+	}
+
+	:global(*) {
+		margin: 0;
+		box-sizing: border-box;
+		font-family: system-ui;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		color: var(--text);
+	}
+</style>
