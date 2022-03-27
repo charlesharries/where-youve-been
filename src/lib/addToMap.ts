@@ -5,7 +5,7 @@ import { map } from '../stores';
 
 export default function addToMap(activity: Activity) {
   const $map = get(map);
-  
+
   if ($map.getSource(`source_${activity.id}`)) return;
   if (!activity.map?.summary_polyline) return;
 
@@ -19,7 +19,7 @@ export default function addToMap(activity: Activity) {
   });
 
   $map.addLayer({
-    id: `layer_${activity.id}`,
+    id: `activity_${activity.id}`,
     type: 'line',
     source: `source_${activity.id}`,
     layout: {
@@ -28,7 +28,8 @@ export default function addToMap(activity: Activity) {
     },
     paint: {
       'line-color': '#bada55',
-      'line-width': 3
+      'line-width': 3,
+      'line-opacity': 1
     }
   });
 }

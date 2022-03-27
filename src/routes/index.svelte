@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import { auth, user } from '../stores';
 	import type { User } from 'src/types';
+	import HeatmapToggle from '../components/heatmapToggle.svelte';
 
 	let code = $page.url.searchParams.get('code');
 	$: isLoggedIn = $auth === 'logged_in';
@@ -26,9 +27,10 @@
 
 			if (data?.athlete) {
 				$user = { ...$user, ...data };
-				$auth = 'logged_in';
 			}
 		}
+
+		if ($user.athlete) $auth = 'logged_in';
 	}
 
 	onMount(() => {
