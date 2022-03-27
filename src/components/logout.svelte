@@ -6,4 +6,4 @@
 	}
 </script>
 
-<button on:click={handleLogout}>Log out</button>
+<button on:click={handleLogout} class="button">Log out</button>

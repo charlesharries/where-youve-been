@@ -1,0 +1,59 @@
+:root {
+  --text: #444;
+  --faded: #aaa;
+  --background: #efefef;
+}
+
+html {
+  font-family: system-ui;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.button {
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
+    rgba(64, 68, 82, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(64, 68, 82, 0.08) 0px 2px 5px 0px;
+  background-color: var(--background);
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text);
+
+  &[disabled] {
+    pointer-events: none;
+    color: var(--faded);
+  }
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
+.h-md { height: 1rem; }
+.w-md { height: 1rem; }

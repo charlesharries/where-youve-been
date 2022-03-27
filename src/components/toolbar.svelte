@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { user } from '../stores';
-	import FetchActivities from '../components/fetchActivities.svelte';
-	import Logout from '../components/logout.svelte';
-	import HeatmapToggle from '../components/heatmapToggle.svelte';
+	import ToolbarActions from '../components/toolbarActions.svelte';
 
 	let version = import.meta.env.VITE_APP_VERSION as string;
 </script>
@@ -22,22 +20,21 @@
 		</p>
 	</div>
 	<div class="toolbar_actions">
-		<FetchActivities />
-		<Logout />
-		<HeatmapToggle />
+		<ToolbarActions />
 	</div>
 </div>
 
 <style lang="scss">
 	.toolbar {
 		position: fixed;
+		z-index: 1;
 		bottom: 1rem;
 		left: 1rem;
 		right: 1rem;
 		background-color: var(--background);
 		display: flex;
 		border-radius: 15px;
-		padding: 1rem;
+		padding: 1rem 1.2rem;
 		align-items: center;
 	}
 

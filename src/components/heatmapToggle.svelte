@@ -18,7 +18,21 @@
 	}
 </script>
 
-<div class="heatmap-toggle">
-	<label for="heatmap">Show heatmap</label>
+<div class="heatmapToggle">
 	<input type="checkbox" id="heatmap" name="heatmap" on:change={toggle} />
+	<label for="heatmap" class="button">{isEnabled ? 'Hide' : 'Show'} heatmap </label>
 </div>
+
+<style lang="scss">
+	.heatmapToggle {
+		position: relative;
+
+		input[type='checkbox'] {
+			position: absolute;
+			inset: 0;
+			height: 100%;
+			width: 100%;
+			opacity: 0;
+		}
+	}
+</style>

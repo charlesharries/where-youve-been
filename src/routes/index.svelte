@@ -2,13 +2,12 @@
 	import localforage from 'localforage';
 	import { page } from '$app/stores';
 	import Login from '../components/login.svelte';
-	import Logout from '../components/logout.svelte';
 	import Map from '../components/map.svelte';
 	import Toolbar from '../components/toolbar.svelte';
 	import { onMount } from 'svelte';
 	import { auth, user } from '../stores';
 	import type { User } from 'src/types';
-	import HeatmapToggle from '../components/heatmapToggle.svelte';
+	import '../styles/global.scss';
 
 	let code = $page.url.searchParams.get('code');
 	$: isLoggedIn = $auth === 'logged_in';
@@ -49,23 +48,3 @@
 {/if}
 
 <Map />
-
-<style lang="scss">
-	:global(:root) {
-		--text: #444;
-		--background: #efefef;
-	}
-
-	:global(body) {
-		margin: 0;
-	}
-
-	:global(*) {
-		margin: 0;
-		box-sizing: border-box;
-		font-family: system-ui;
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-smoothing: antialiased;
-		color: var(--text);
-	}
-</style>
