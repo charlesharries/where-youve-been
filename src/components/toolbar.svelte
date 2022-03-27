@@ -14,9 +14,8 @@
 		<p>
 			<strong>
 				{$user.athlete.firstname}
-				{$user.athlete.lastname}<br />
+				{$user.athlete.lastname}
 			</strong>
-			{$user.athlete.username}
 		</p>
 	</div>
 	<div class="toolbar_actions">
@@ -34,8 +33,9 @@
 		background-color: var(--background);
 		display: flex;
 		border-radius: 15px;
-		padding: 1rem 1.2rem;
+		padding: 1rem;
 		align-items: center;
+		box-shadow: var(--shadow);
 	}
 
 	.toolbar_title {
