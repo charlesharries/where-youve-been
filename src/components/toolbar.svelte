@@ -6,10 +6,10 @@
 </script>
 
 <div class="toolbar">
-	<div class="toolbar_title">
+	<small class="toolbar_title">
 		<h1>Where You've Been</h1>
-		<small>v{version}</small>
-	</div>
+		<span class="toolbar_version">v{version}</span>
+	</small>
 	<div class="toolbar_user">
 		<p>
 			<strong>
@@ -43,11 +43,12 @@
 		align-items: baseline;
 
 		h1 {
-			font-size: 1rem;
+			font-size: inherit;
 		}
-		small {
-			margin-left: 0.5rem;
-		}
+	}
+
+	.toolbar_version {
+		margin-left: 0.5rem;
 	}
 
 	.toolbar_user {
