@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { user } from '../stores';
+	import { user, loadingState } from '../stores';
 	import addToMap from '../lib/addToMap';
 	import localforage from 'localforage';
 	import refreshUser from '$lib/refreshUser';
 
-	let status = 'idle';
-	$: isLoading = status === 'loading';
+	$: isLoading = $loadingState === 'loading';
 
 	async function fetchActivities() {
-		status = 'loading';
+		$loadingState = 'loading';
 		const url = new URL(`${window.location.origin}/api/activities`);
 		url.searchParams.append('access_token', $user.access_token);
 		let hasNextPage = true;
@@ -38,7 +37,7 @@
 			currentPage += 1;
 		}
 
-		status = 'idle';
+		$loadingState = 'idle';
 	}
 </script>
 

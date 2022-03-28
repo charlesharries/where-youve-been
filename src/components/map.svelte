@@ -36,7 +36,6 @@
 		if (!$map.loaded()) return;
 
 		const activities = await localforage.startsWith('activity_');
-		console.log(`initting ${Object.keys(activities).length} activities`);
 		if (Object.keys(activities).length) {
 			Object.values(activities).forEach(addToMap);
 		}
@@ -67,7 +66,6 @@
 
 		darkMode.addEventListener('change', handleDarkModeChange);
 		authUnsubscribe = auth.subscribe((a) => {
-			console.log({ a });
 			if (a === 'logged_out') clearActivities();
 			if (a === 'logged_in') initActivities();
 		});

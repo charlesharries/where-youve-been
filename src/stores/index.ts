@@ -7,3 +7,5 @@ export const user = writable<User>(null);
 export const map = writable<mapboxgl.Map>(null);
 
 export const auth = writable<string>('logged_out');
+
+export const loadingState = writable('idle');
