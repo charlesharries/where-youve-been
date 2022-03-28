@@ -4,7 +4,7 @@
 	import localforage from 'localforage';
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
-	import { map, auth } from '../stores';
+	import { map, auth, stats } from '../stores';
 	import addToMap from '../lib/addToMap';
 	import type { Unsubscriber } from 'svelte/store';
 
@@ -30,6 +30,8 @@
 				$map.removeLayer(l.id);
 			}
 		});
+
+		$stats = { totalDistance: 0, totalTime: 0 };
 	}
 
 	async function initActivities() {
@@ -77,6 +79,8 @@
 		}
 
 		if (typeof authUnsubscribe === 'function') authUnsubscribe();
+
+		$stats = { totalDistance: 0, totalTime: 0 };
 	});
 </script>
 

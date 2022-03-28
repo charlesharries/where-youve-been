@@ -1,7 +1,7 @@
 import type { Activity } from 'src/types';
 import polyline from '@mapbox/polyline';
 import { get } from 'svelte/store';
-import { map } from '../stores';
+import { map, stats } from '../stores';
 
 export default function addToMap(activity: Activity) {
   const $map = get(map);
@@ -38,4 +38,9 @@ export default function addToMap(activity: Activity) {
       }
     });
   }
+
+  stats.update(s => ({
+    totalDistance: Math.round(s.totalDistance + activity.distance),
+    totalTime: s.totalTime + activity.elapsed_time,
+  }));
 }

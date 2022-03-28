@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user, auth } from '../stores';
+	import { user, auth, stats } from '../stores';
 	import ToolbarActions from '../components/toolbarActions.svelte';
 
 	let version = import.meta.env.VITE_APP_VERSION as string;
@@ -18,6 +18,11 @@
 					{$user.athlete.firstname}
 					{$user.athlete.lastname}
 				</strong>
+				{#if $stats.totalDistance > 0}
+					<small class="text-muted ml-md">
+						{Math.round($stats.totalDistance / 1000)} km traveled
+					</small>
+				{/if}
 			</p>
 		{/if}
 	</div>

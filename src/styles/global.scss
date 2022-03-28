@@ -1,5 +1,6 @@
 :root {
   --text: #444;
+  --muted: #888;
   --faded: #aaa;
   --background: #efefef;
   --primary: #9400ba;
@@ -9,6 +10,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #efefef;
+    --muted: #bababa;
     --faded: #444;
     --background: #222;
     --primary: #bada55;
@@ -81,6 +83,9 @@ body {
 
 .h-md { height: 1rem; }
 .w-md { height: 1rem; }
+.ml-md { margin-left: 1rem; }
+
+.text-muted { color: var(--muted); }
 
 small {
   font-size: 0.85rem;
