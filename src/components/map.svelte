@@ -4,7 +4,7 @@
 	import localforage from 'localforage';
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
-	import { map, auth } from '../stores';
+	import { map, auth, stats } from '../stores';
 	import addToMap from '../lib/addToMap';
 	import type { Unsubscriber } from 'svelte/store';
 
@@ -30,13 +30,14 @@
 				$map.removeLayer(l.id);
 			}
 		});
+
+		$stats = { totalDistance: 0, totalTime: 0 };
 	}
 
 	async function initActivities() {
 		if (!$map.loaded()) return;
 
 		const activities = await localforage.startsWith('activity_');
-		console.log(`initting ${Object.keys(activities).length} activities`);
 		if (Object.keys(activities).length) {
 			Object.values(activities).forEach(addToMap);
 		}
@@ -67,7 +68,6 @@
 
 		darkMode.addEventListener('change', handleDarkModeChange);
 		authUnsubscribe = auth.subscribe((a) => {
-			console.log({ a });
 			if (a === 'logged_out') clearActivities();
 			if (a === 'logged_in') initActivities();
 		});
@@ -79,6 +79,8 @@
 		}
 
 		if (typeof authUnsubscribe === 'function') authUnsubscribe();
+
+		$stats = { totalDistance: 0, totalTime: 0 };
 	});
 </script>
 

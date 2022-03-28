@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user, auth } from '../stores';
+	import { user, auth, stats } from '../stores';
 	import ToolbarActions from '../components/toolbarActions.svelte';
 
 	let version = import.meta.env.VITE_APP_VERSION as string;
@@ -11,16 +11,24 @@
 		<h1>Where You've Been</h1>
 		<span class="toolbar_version">v{version}</span>
 	</small>
-	<div class="toolbar_user">
+	<p class="toolbar_user">
 		{#if isLoggedIn}
-			<p>
-				<strong>
-					{$user.athlete.firstname}
-					{$user.athlete.lastname}
-				</strong>
-			</p>
+			<img
+				src={$user.athlete.profile}
+				class="toolbar_pic"
+				alt={`${$user.athlete.firstname} ${$user.athlete.lastname}`}
+			/>
+			<strong class="ml-md">
+				{$user.athlete.firstname}
+				{$user.athlete.lastname}
+			</strong>
+			{#if $stats.totalDistance > 0}
+				<small class="text-muted ml-md">
+					{Math.round($stats.totalDistance / 1000)} km travelled
+				</small>
+			{/if}
 		{/if}
-	</div>
+	</p>
 	<div class="toolbar_actions">
 		<ToolbarActions />
 	</div>
@@ -57,5 +65,14 @@
 	.toolbar_user {
 		flex: 1;
 		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.toolbar_pic {
+		height: 30px;
+		width: 30px;
+		border-radius: 100%;
 	}
 </style>

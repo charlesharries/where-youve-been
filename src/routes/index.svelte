@@ -1,7 +1,6 @@
 <script lang="ts">
 	import localforage from 'localforage';
 	import { page } from '$app/stores';
-	import Login from '../components/login.svelte';
 	import Map from '../components/map.svelte';
 	import Toolbar from '../components/toolbar.svelte';
 	import { onMount } from 'svelte';
