@@ -17,6 +17,9 @@ export interface Activity {
   map: {
     summary_polyline: string;
   }
+  start_latlng: [number, number];
+  start_latitude: number;
+  start_longitude: number;
 }
 
 export interface Stats {
