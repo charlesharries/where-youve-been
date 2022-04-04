@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { user, loadingState, stats } from '../stores';
-	import { addToMap, fitMap, processBounds } from '../lib/addToMap';
+	import { addToMap, byDate, fitMap, processBounds, showLatest } from '../lib/addToMap';
 	import localforage from 'localforage';
 	import refreshUser from '$lib/refreshUser';
 	import type { LngLatBoundsLike } from 'mapbox-gl';
+	import type { Activity } from 'src/types';
 
 	$: isLoading = $loadingState === 'loading';
 
@@ -30,11 +31,13 @@
 			if (!Array.isArray(data) || data.length < 200) hasNextPage = false;
 
 			if (data[0]?.map) {
-				data.forEach((activity) => {
+				data.sort(byDate).forEach((activity: Activity, idx) => {
 					localforage.setItem(`activity_${activity.id}`, activity);
 
 					addToMap(activity);
-					bounds = processBounds(activity, bounds);
+					if (idx < showLatest) {
+						bounds = processBounds(activity, bounds);
+					}
 				});
 			}
 

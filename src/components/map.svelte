@@ -5,7 +5,7 @@
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
 	import { map, auth, stats } from '../stores';
-	import { addToMap, fitMap, processBounds } from '../lib/addToMap';
+	import { addToMap, byDate, fitMap, processBounds, showLatest } from '../lib/addToMap';
 	import type { Unsubscriber } from 'svelte/store';
 	import type { LngLatBoundsLike } from 'mapbox-gl';
 	import type { Activity } from 'src/types';
@@ -43,10 +43,14 @@
 		const activities = await localforage.startsWith('activity_');
 
 		if (Object.keys(activities).length) {
-			Object.values(activities).forEach((activity) => {
-				bounds = processBounds(activity, bounds);
-				addToMap(activity);
-			});
+			Object.values(activities)
+				.sort(byDate)
+				.forEach((activity, idx) => {
+					if (idx < showLatest) {
+						bounds = processBounds(activity, bounds);
+					}
+					addToMap(activity);
+				});
 			fitMap(bounds);
 		}
 	}

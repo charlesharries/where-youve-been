@@ -4,15 +4,24 @@ import { get } from 'svelte/store';
 import { map, stats } from '../stores';
 import type { LngLatBoundsLike } from 'mapbox-gl';
 
+export const showLatest = 20;
+
+export function byDate(act1: Activity, act2: Activity) {
+  return new Date(act1.start_date) < new Date(act2.start_date) ? 1 : -1;
+}
+
 export function fitMap(bounds: LngLatBoundsLike) {
   if (!(bounds && bounds[0])) return;
 
   const $map = get(map);
 
+  console.log('fitting to', { bounds });
+
   $map.fitBounds(bounds, { padding: 50 });
 }
 
 export function processBounds(act: Activity, bounds: LngLatBoundsLike) {
+  console.log('processing bounds');
   const b = bounds || [
     act.start_latlng[1],
     act.start_latlng[0],
