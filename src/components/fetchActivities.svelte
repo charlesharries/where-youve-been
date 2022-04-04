@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { user, loadingState, stats } from '../stores';
-	import addToMap from '../lib/addToMap';
+	import { addToMap, byDate, fitMap, processBounds, showLatest } from '../lib/addToMap';
 	import localforage from 'localforage';
 	import refreshUser from '$lib/refreshUser';
+	import type { LngLatBoundsLike } from 'mapbox-gl';
+	import type { Activity } from 'src/types';
 
 	$: isLoading = $loadingState === 'loading';
 
@@ -12,6 +14,7 @@
 		url.searchParams.append('access_token', $user.access_token);
 		let hasNextPage = true;
 		let currentPage = 1;
+		let bounds: LngLatBoundsLike;
 		$stats = { totalDistance: 0, totalTime: 0 };
 
 		while (hasNextPage) {
@@ -28,15 +31,20 @@
 			if (!Array.isArray(data) || data.length < 200) hasNextPage = false;
 
 			if (data[0]?.map) {
-				data.forEach((activity) => {
+				data.sort(byDate).forEach((activity: Activity, idx) => {
 					localforage.setItem(`activity_${activity.id}`, activity);
 
 					addToMap(activity);
+					if (idx < showLatest) {
+						bounds = processBounds(activity, bounds);
+					}
 				});
 			}
 
 			currentPage += 1;
 		}
+
+		fitMap(bounds);
 
 		$loadingState = 'idle';
 	}

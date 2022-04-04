@@ -2,8 +2,42 @@ import type { Activity } from 'src/types';
 import polyline from '@mapbox/polyline';
 import { get } from 'svelte/store';
 import { map, stats } from '../stores';
+import type { LngLatBoundsLike } from 'mapbox-gl';
 
-export default function addToMap(activity: Activity) {
+export const showLatest = 20;
+
+export function byDate(act1: Activity, act2: Activity) {
+  return new Date(act1.start_date) < new Date(act2.start_date) ? 1 : -1;
+}
+
+export function fitMap(bounds: LngLatBoundsLike) {
+  if (!(bounds && bounds[0])) return;
+
+  const $map = get(map);
+
+  console.log('fitting to', { bounds });
+
+  $map.fitBounds(bounds, { padding: 50 });
+}
+
+export function processBounds(act: Activity, bounds: LngLatBoundsLike) {
+  console.log('processing bounds');
+  const b = bounds || [
+    act.start_latlng[1],
+    act.start_latlng[0],
+    act.start_latlng[1],
+    act.start_latlng[0]
+  ];
+
+  if (act.start_latlng[1] < b[0]) b[0] = act.start_latlng[1];
+  if (act.start_latlng[0] < b[1]) b[1] = act.start_latlng[0];
+  if (act.start_latlng[1] > b[2]) b[2] = act.start_latlng[1];
+  if (act.start_latlng[0] > b[3]) b[3] = act.start_latlng[0];
+
+  return b;
+}
+
+export function addToMap(activity: Activity) {
   const $map = get(map);
   const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const lineColor = isDarkMode ? '#bada55' : '#9400ba';
