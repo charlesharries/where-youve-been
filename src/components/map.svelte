@@ -74,6 +74,7 @@
 		});
 
 		$map.addControl(new mapboxgl.AttributionControl(), 'top-right');
+		$map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
 		$map.on('load', () => initActivities());
 
 		initActivities();
