@@ -4,7 +4,7 @@
   --faded: #aaa;
   --background: #efefef;
   --primary: #9400ba;
-  --shadow: 0 2px 4px rgba(0,0,0,0.15);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   --font: system-ui;
 }
 
@@ -15,7 +15,23 @@
     --faded: #444;
     --background: #222;
     --primary: #bada55;
-    --shadow: 0 2px 4px rgba(0,0,0,0.2);
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .mapboxgl-ctrl-group {
+    background-color: var(--background);
+
+    & button+button {
+      border-top-color: var(--faded);
+    }
+  }
+
+  .mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+    background-image: url(data:image/svg+xml;charset=utf8,<svg%20viewBox%3D%270%200%2020%2020%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27>%0A%20%20<path%20style%3D%27fill%3A%23efefef%3B%27%20d%3D%27M%2010%206%20C%209.446%206%209%206.4459904%209%207%20L%209%209%20L%207%209%20C%206.446%209%206%209.446%206%2010%20C%206%2010.554%206.446%2011%207%2011%20L%209%2011%20L%209%2013%20C%209%2013.55401%209.446%2014%2010%2014%20C%2010.554%2014%2011%2013.55401%2011%2013%20L%2011%2011%20L%2013%2011%20C%2013.554%2011%2014%2010.554%2014%2010%20C%2014%209.446%2013.554%209%2013%209%20L%2011%209%20L%2011%207%20C%2011%206.4459904%2010.554%206%2010%206%20z%27%20%2F>%0A<%2Fsvg>%0A) !important;
+  }
+
+  .mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+    background-image: url(data:image/svg+xml;charset=utf8,<svg%20viewBox%3D%270%200%2020%2020%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27>%0A%20%20<path%20style%3D%27fill%3A%23efefef%3B%27%20d%3D%27m%207%2C9%20c%20-0.554%2C0%20-1%2C0.446%20-1%2C1%200%2C0.554%200.446%2C1%201%2C1%20l%206%2C0%20c%200.554%2C0%201%2C-0.446%201%2C-1%200%2C-0.554%20-0.446%2C-1%20-1%2C-1%20z%27%20%2F>%0A<%2Fsvg>%0A) !important;
   }
 }
 
@@ -63,8 +79,8 @@ body {
 
   &:focus,
   &:active,
-  input:focus + &,
-  input:active + & {
+  input:focus+&,
+  input:active+& {
     outline: 2px solid var(--primary);
   }
 
@@ -74,22 +90,38 @@ body {
 }
 
 .sr-only:not(:focus):not(:active) {
-  clip: rect(0 0 0 0); 
+  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
   overflow: hidden;
   position: absolute;
-  white-space: nowrap; 
+  white-space: nowrap;
   width: 1px;
 }
 
-.h-sm { height: 0.85rem; }
-.w-sm { width: 0.85rem; }
-.h-md { height: 1rem; }
-.w-md { height: 1rem; }
-.ml-md { margin-left: 1rem; }
+.h-sm {
+  height: 0.85rem;
+}
 
-.text-muted { color: var(--muted); }
+.w-sm {
+  width: 0.85rem;
+}
+
+.h-md {
+  height: 1rem;
+}
+
+.w-md {
+  height: 1rem;
+}
+
+.ml-md {
+  margin-left: 1rem;
+}
+
+.text-muted {
+  color: var(--muted);
+}
 
 small {
   font-size: 0.85rem;
