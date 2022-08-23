@@ -9,9 +9,9 @@
 </script>
 
 <div class="toolbarActions">
-	<FetchActivities />
-	<HeatmapToggle />
 	{#if isLoggedIn}
+		<FetchActivities />
+		<HeatmapToggle />
 		<Logout />
 	{:else}
 		<Login />
