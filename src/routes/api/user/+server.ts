@@ -23,7 +23,7 @@ async function refreshUser(refreshToken: string) {
   return fetch(url.toString(), { method: 'POST' }).then(r => r.json());
 }
 
-const get: RequestHandler = async ({ url }) => {
+const GET: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get('code');
   const refreshToken = url.searchParams.get('refresh_token');
   let data;
@@ -34,11 +34,10 @@ const get: RequestHandler = async ({ url }) => {
     data = await getUser(code);
   }
 
-  return {
-    status: 200,
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' },
-  }
+  const response = new Response(JSON.stringify(data));
+  response.headers.set('Content-Type', 'application/json');
+
+  return response;
 }
 
-export { get }
+export { GET }

@@ -47,6 +47,14 @@
 		padding: 1rem;
 		align-items: center;
 		box-shadow: var(--shadow);
+
+		@media (max-width: 768px) {
+			flex-direction: column;
+
+			& > * + * {
+				margin-top: 10px;
+			}
+		}
 	}
 
 	.toolbar_title {

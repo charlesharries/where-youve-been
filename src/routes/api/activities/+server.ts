@@ -1,4 +1,4 @@
-import type { RequestHandler } from "@sveltejs/kit";
+import { error, type RequestHandler } from "@sveltejs/kit";
 
 async function getActivities(accessToken, page = '1') {
   const url = new URL(`https://www.strava.com/api/v3/athlete/activities`)
@@ -11,16 +11,19 @@ async function getActivities(accessToken, page = '1') {
   });
 }
 
-export const get: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url }) => {
   const accessToken = url.searchParams.get('access_token');
   const page = url.searchParams.get('page');
 
   const res = await getActivities(accessToken, page);
   const body = await res.json();
 
-  return {
-    status: res.status,
-    body: JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' },
+  if (!res.ok) {
+    throw error(500, JSON.stringify(body));
   }
+
+  const response = new Response(JSON.stringify(body));
+  response.headers.set('Content-Type', 'application/json');
+
+  return response;
 }
