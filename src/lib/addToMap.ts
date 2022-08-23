@@ -15,13 +15,10 @@ export function fitMap(bounds: LngLatBoundsLike) {
 
   const $map = get(map);
 
-  console.log('fitting to', { bounds });
-
   $map.fitBounds(bounds, { padding: 50 });
 }
 
 export function processBounds(act: Activity, bounds: LngLatBoundsLike) {
-  console.log('processing bounds');
   const b = bounds || [
     act.start_latlng[1],
     act.start_latlng[0],
@@ -76,5 +73,6 @@ export function addToMap(activity: Activity) {
   stats.update(s => ({
     totalDistance: Math.round(s.totalDistance + activity.distance),
     totalTime: s.totalTime + activity.elapsed_time,
+    reset: s.reset,
   }));
 }

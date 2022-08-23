@@ -26,4 +26,5 @@ export interface Activity {
 export interface Stats {
   totalDistance: number;
   totalTime: number;
+  reset: () => void;
 }

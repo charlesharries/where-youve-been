@@ -13,4 +13,8 @@ export const loadingState = writable('idle');
 export const stats = writable<Stats>({
   totalDistance: 0,
   totalTime: 0,
+  reset() {
+    this.totalDistance = 0;
+    this.totalTime = 0;
+  },
 });

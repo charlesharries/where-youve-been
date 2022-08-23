@@ -15,7 +15,7 @@
 		let hasNextPage = true;
 		let currentPage = 1;
 		let bounds: LngLatBoundsLike;
-		$stats = { totalDistance: 0, totalTime: 0 };
+		$stats.reset();
 
 		while (hasNextPage) {
 			url.searchParams.set('page', `${currentPage}`);

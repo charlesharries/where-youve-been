@@ -33,7 +33,7 @@
 			}
 		});
 
-		$stats = { totalDistance: 0, totalTime: 0 };
+		$stats.reset();
 	}
 
 	async function initActivities() {
@@ -41,6 +41,8 @@
 
 		let bounds: LngLatBoundsLike;
 		const activities = await localforage.startsWith('activity_');
+
+		$stats.reset();
 
 		if (Object.keys(activities).length) {
 			Object.values(activities)
@@ -93,7 +95,7 @@
 
 		if (typeof authUnsubscribe === 'function') authUnsubscribe();
 
-		$stats = { totalDistance: 0, totalTime: 0 };
+		$stats.reset();
 	});
 </script>
 
