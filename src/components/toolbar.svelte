@@ -14,13 +14,13 @@
 	<p class="toolbar_user">
 		{#if isLoggedIn}
 			<img
-				src={$user.athlete.profile}
+				src={$user?.athlete.profile}
 				class="toolbar_pic"
-				alt={`${$user.athlete.firstname} ${$user.athlete.lastname}`}
+				alt={`${$user?.athlete.firstname} ${$user?.athlete.lastname}`}
 			/>
 			<strong class="ml-md">
-				{$user.athlete.firstname}
-				{$user.athlete.lastname}
+				{$user?.athlete.firstname}
+				{$user?.athlete.lastname}
 			</strong>
 			{#if $stats.totalDistance > 0}
 				<small class="text-muted ml-md">

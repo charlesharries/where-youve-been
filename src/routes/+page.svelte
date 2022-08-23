@@ -28,7 +28,7 @@
 			}
 		}
 
-		if ($user.athlete) $auth = 'logged_in';
+		if ($user?.athlete) $auth = 'logged_in';
 	}
 
 	onMount(() => {
