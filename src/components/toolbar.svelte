@@ -2,7 +2,7 @@
 	import { user, auth, stats } from '../stores';
 	import ToolbarActions from '../components/toolbarActions.svelte';
 
-	let version = import.meta.env.VITE_APP_VERSION as string;
+	let version = __APP_VERSION__;
 	$: isLoggedIn = $auth === 'logged_in';
 </script>
 
