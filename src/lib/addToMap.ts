@@ -18,6 +18,19 @@ export function fitMap(bounds: LngLatBoundsLike) {
   $map.fitBounds(bounds, { padding: 50 });
 }
 
+function flipped(coords, thinFactor = 1) {
+  const flipped = [];
+  for (let i = 0; i < coords.length; i++) {
+    if (i % thinFactor != 0) {
+      continue;
+    }
+
+    const coord = coords[i].slice();
+    flipped.push([coord[1], coord[0]]);
+  }
+  return flipped;
+}
+
 export function processBounds(act: Activity, bounds: LngLatBoundsLike) {
   const b = bounds || [
     act.start_latlng[1],
@@ -43,12 +56,16 @@ export function addToMap(activity: Activity) {
 
   // Add the source if it doesn't exist already
   if (!$map.getSource(`source_${activity.id}`)) {
+    const coords = polyline.decode(activity.map.summary_polyline);
     $map.addSource(`source_${activity.id}`, {
       type: 'geojson',
       data: {
         type: 'Feature',
         properties: {},
-        geometry: polyline.toGeoJSON(activity.map.summary_polyline)
+        geometry: {
+          type: 'LineString',
+          coordinates: flipped(coords, 5),
+        },
       }
     });
   }
