@@ -64,7 +64,7 @@ export function addToMap(activity: Activity) {
         properties: {},
         geometry: {
           type: 'LineString',
-          coordinates: flipped(coords, 5),
+          coordinates: flipped(coords, 3),
         },
       }
     });
