@@ -12,7 +12,7 @@
   "devDependencies": {
     "@sveltejs/adapter-vercel": "^5.8.0",
     "@sveltejs/kit": "^2.57.1",
-    "@types/mapbox-gl": "^3.4.1",
+    "@types/mapbox-gl": "^3.5.0",
     "@types/mapbox__polyline": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.58.1",
@@ -37,6 +37,6 @@
     "@mapbox/polyline": "^1.2.1",
     "localforage": "^1.10.0",
     "localforage-startswith": "^1.4.0",
-    "mapbox-gl": "^3.13.0"
+    "mapbox-gl": "^3.21.0"
   }
 }
