@@ -27,17 +27,8 @@ export function fitMap(bounds: LngLatBoundsLike) {
   $map.fitBounds(bounds, { padding: 50 });
 }
 
-function flipped(coords, thinFactor = 1) {
-  const flipped = [];
-  for (let i = 0; i < coords.length; i++) {
-    if (i % thinFactor != 0) {
-      continue;
-    }
-
-    const coord = coords[i].slice();
-    flipped.push([coord[1], coord[0]]);
-  }
-  return flipped;
+function flipped(coords) {
+  return coords.map((coord) => [coord[1], coord[0]]);
 }
 
 export function processBounds(act: Activity, bounds: LngLatBoundsLike) {
@@ -67,6 +58,8 @@ function ensureSourceAndLayer($map: mapboxgl.Map): void {
     $map.addSource(ACTIVITIES_SOURCE_ID, {
       type: 'geojson',
       data: featureCollection,
+      tolerance: 1.5,
+      buffer: 0,
     });
   }
 
@@ -103,7 +96,7 @@ export function addToMap(activity: Activity) {
       properties: { id: activity.id },
       geometry: {
         type: 'LineString',
-        coordinates: flipped(coords, 3),
+        coordinates: flipped(coords),
       },
     });
   }
@@ -131,7 +124,7 @@ export function addActivitiesToMap(activities: Activity[]): void {
       properties: { id: activity.id },
       geometry: {
         type: 'LineString',
-        coordinates: flipped(coords, 3),
+        coordinates: flipped(coords),
       },
     });
   }
