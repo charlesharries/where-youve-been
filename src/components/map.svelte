@@ -5,7 +5,7 @@
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
 	import { map, auth, stats } from '../stores';
-	import { addToMap, byDate, fitMap, processBounds, showLatest } from '../lib/addToMap';
+	import { addActivitiesToMap, byDate, fitMap, processBounds, resetActivities, reinitLayer, showLatest } from '../lib/addToMap';
 	import type { Unsubscriber } from 'svelte/store';
 	import type { LngLatBoundsLike } from 'mapbox-gl';
 	import type { Activity } from 'src/types';
@@ -20,41 +20,37 @@
 	function handleDarkModeChange(event: MediaQueryListEvent) {
 		if (!$map.loaded()) return;
 
+		$map.once('style.load', () => reinitLayer());
 		$map.setStyle(event.matches ? darkStyle : lightStyle);
-		initActivities();
 	}
 
 	async function clearActivities() {
 		if (!$map?.loaded()) return;
 
-		$map.getStyle().layers.forEach((l) => {
-			if (l.id.startsWith('activity_')) {
-				$map.removeLayer(l.id);
-			}
-		});
-
+		resetActivities();
 		$stats.reset();
 	}
 
 	async function initActivities() {
 		if (!$map.loaded()) return;
 
-		let bounds: LngLatBoundsLike;
 		const activities = await localforage.startsWith('activity_');
 
 		$stats.reset();
 
-		if (Object.keys(activities).length) {
-			Object.values(activities)
-				.sort(byDate)
-				.forEach((activity, idx) => {
-					if (idx < showLatest) {
-						bounds = processBounds(activity, bounds);
-					}
-					addToMap(activity);
-				});
-			fitMap(bounds);
-		}
+		if (!Object.keys(activities).length) return;
+
+		const sorted: Activity[] = Object.values(activities).sort(byDate);
+
+		let bounds: LngLatBoundsLike;
+		sorted.forEach((activity, idx) => {
+			if (idx < showLatest) {
+				bounds = processBounds(activity, bounds);
+			}
+		});
+
+		addActivitiesToMap(sorted);
+		fitMap(bounds);
 	}
 
 	onMount(async () => {
