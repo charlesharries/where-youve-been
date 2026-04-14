@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { map } from '../stores';
+	import { ACTIVITIES_LAYER_ID } from '../lib/addToMap';
 
 	let isEnabled = false;
 
 	function updateMap() {
-		$map.getStyle().layers.forEach((l) => {
-			if (!l.id.startsWith('activity')) return;
+		if (!$map?.getLayer(ACTIVITIES_LAYER_ID)) return;
 
-			const opacity = isEnabled ? 0.2 : 1;
-			$map.setPaintProperty(l.id, 'line-opacity', opacity);
-		});
+		$map.setPaintProperty(ACTIVITIES_LAYER_ID, 'line-opacity', isEnabled ? 0.2 : 1);
 	}
 
 	function toggle() {
