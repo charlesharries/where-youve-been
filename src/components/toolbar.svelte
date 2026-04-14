@@ -100,6 +100,7 @@
 		cursor: pointer;
 		margin-left: 0.35rem;
 		color: var(--muted);
+		align-self: center;
 
 		&:hover {
 			color: var(--text);

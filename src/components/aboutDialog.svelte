@@ -66,6 +66,7 @@
 		background-color: var(--background);
 		color: var(--text);
 		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+		margin: auto;
 
 		&::backdrop {
 			background: rgba(0, 0, 0, 0.5);
