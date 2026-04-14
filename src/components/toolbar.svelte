@@ -69,7 +69,7 @@
 
 	.toolbar_title {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 
 		h1 {
 			font-size: inherit;
