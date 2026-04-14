@@ -58,7 +58,7 @@ function ensureSourceAndLayer($map: mapboxgl.Map): void {
     $map.addSource(ACTIVITIES_SOURCE_ID, {
       type: 'geojson',
       data: featureCollection,
-      tolerance: 1.5,
+      tolerance: 0.75,
       buffer: 0,
     });
   }
