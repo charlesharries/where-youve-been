@@ -5,6 +5,7 @@
 	import Toolbar from '../components/toolbar.svelte';
 	import { onMount } from 'svelte';
 	import { auth, user } from '../stores';
+	import refreshUser from '../lib/refreshUser';
 	import type { User } from 'src/types';
 	import '../styles/global.scss';
 
@@ -25,6 +26,14 @@
 
 			if (data?.athlete) {
 				$user = { ...$user, ...data };
+			}
+		}
+
+		// Proactively refresh the access token if it has expired
+		if ($user?.refresh_token) {
+			const now = Math.floor(Date.now() / 1000);
+			if (!$user.expires_at || $user.expires_at <= now) {
+				await refreshUser();
 			}
 		}
 

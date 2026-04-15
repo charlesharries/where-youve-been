@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ url }) => {
   const body = await res.json();
 
   if (!res.ok) {
-    throw error(500, JSON.stringify(body));
+    throw error(res.status, JSON.stringify(body));
   }
 
   const response = new Response(JSON.stringify(body));
