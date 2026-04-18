@@ -1,6 +1,9 @@
 <script lang="ts">
 	import 'mapbox-gl/dist/mapbox-gl.css';
-	import mapboxgl from 'mapbox-gl';
+	import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
+	import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker?worker';
+
+	mapboxgl.workerClass = MapboxWorker;
 	import localforage from 'localforage';
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';

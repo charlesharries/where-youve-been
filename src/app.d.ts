@@ -10,3 +10,13 @@ declare namespace App {
 }
 
 declare const __APP_VERSION__: string;
+
+declare module 'mapbox-gl/dist/mapbox-gl-csp' {
+	import mapboxgl from 'mapbox-gl';
+	export default mapboxgl;
+}
+
+declare module 'mapbox-gl/dist/mapbox-gl-csp-worker?worker' {
+	const WorkerConstructor: new () => Worker;
+	export default WorkerConstructor;
+}
