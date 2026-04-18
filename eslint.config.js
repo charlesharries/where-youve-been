@@ -16,6 +16,9 @@ export default [
 				...globals.browser,
 				...globals.node
 			}
+		},
+		rules: {
+			'no-undef': 'off'
 		}
 	},
 	{

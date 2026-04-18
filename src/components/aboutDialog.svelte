@@ -24,7 +24,6 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog bind:this={dialog} on:click={handleBackdropClick} aria-labelledby="about-title">
 	<div class="about_content">
 		<div class="about_header">

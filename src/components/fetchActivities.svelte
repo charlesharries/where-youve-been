@@ -3,18 +3,19 @@
 	import { addToMap, byDate, fitMap, processBounds, showLatest } from '../lib/addToMap';
 	import localforage from 'localforage';
 	import refreshUser from '$lib/refreshUser';
-	import type { LngLatBoundsLike } from 'mapbox-gl';
-	import type { Activity } from 'src/types';
+	import type { Activity } from '../types';
 
 	$: isLoading = $loadingState === 'loading';
 
 	async function fetchActivities() {
+		if (!$user) return;
+
 		$loadingState = 'loading';
 		const url = new URL(`${window.location.origin}/api/activities`);
 		url.searchParams.append('access_token', $user.access_token);
 		let hasNextPage = true;
 		let currentPage = 1;
-		let bounds: LngLatBoundsLike;
+		let bounds: [number, number, number, number] | undefined;
 		$stats.reset();
 
 		while (hasNextPage) {
@@ -31,7 +32,7 @@
 			if (!Array.isArray(data) || data.length < 200) hasNextPage = false;
 
 			if (data[0]?.map) {
-				data.sort(byDate).forEach((activity: Activity, idx) => {
+				data.sort(byDate).forEach((activity: Activity, idx: number) => {
 					localforage.setItem(`activity_${activity.id}`, activity);
 
 					addToMap(activity);
