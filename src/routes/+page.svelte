@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { auth, user } from '../stores';
 	import refreshUser from '../lib/refreshUser';
-	import type { User } from 'src/types';
+	import type { User } from '../types';
 	import '../styles/global.scss';
 
 	let code = $page.url.searchParams.get('code');

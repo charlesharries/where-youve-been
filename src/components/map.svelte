@@ -1,24 +1,26 @@
 <script lang="ts">
 	import 'mapbox-gl/dist/mapbox-gl.css';
-	import mapboxgl from 'mapbox-gl';
+	import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
+	import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker?worker';
+
+	mapboxgl.workerClass = MapboxWorker;
 	import localforage from 'localforage';
 	import 'localforage-startswith';
 	import { onMount, onDestroy } from 'svelte';
 	import { map, auth, stats } from '../stores';
 	import { addActivitiesToMap, byDate, fitMap, processBounds, resetActivities, reinitLayer, showLatest } from '../lib/addToMap';
 	import type { Unsubscriber } from 'svelte/store';
-	import type { LngLatBoundsLike } from 'mapbox-gl';
-	import type { Activity } from 'src/types';
+	import type { Activity } from '../types';
 
 	let container: HTMLElement;
-	let darkMode: MediaQueryList = null;
-	let authUnsubscribe: Unsubscriber = null;
+	let darkMode: MediaQueryList | null = null;
+	let authUnsubscribe: Unsubscriber | null = null;
 
 	const darkStyle = 'mapbox://styles/mapbox/dark-v10';
 	const lightStyle = 'mapbox://styles/mapbox/outdoors-v11';
 
 	function handleDarkModeChange(event: MediaQueryListEvent) {
-		if (!$map.loaded()) return;
+		if (!$map?.loaded()) return;
 
 		$map.once('style.load', () => reinitLayer());
 		$map.setStyle(event.matches ? darkStyle : lightStyle);
@@ -32,7 +34,7 @@
 	}
 
 	async function initActivities() {
-		if (!$map.loaded()) return;
+		if (!$map?.loaded()) return;
 
 		const activities = await localforage.startsWith('activity_');
 
@@ -42,7 +44,7 @@
 
 		const sorted: Activity[] = Object.values(activities).sort(byDate);
 
-		let bounds: LngLatBoundsLike;
+		let bounds: [number, number, number, number] | undefined;
 		sorted.forEach((activity, idx) => {
 			if (idx < showLatest) {
 				bounds = processBounds(activity, bounds);
@@ -95,7 +97,7 @@
 	});
 </script>
 
-<div bind:this={container} class="map" />
+<div bind:this={container} class="map"></div>
 
 <style lang="scss">
 	.map {
