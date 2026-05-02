@@ -40,7 +40,7 @@
 		"@mapbox/polyline": "^1.2.1",
 		"localforage": "^1.10.0",
 		"localforage-startswith": "^1.4.0",
-		"mapbox-gl": "^3.21.0"
+		"mapbox-gl": "^3.23.0"
 	},
 	"overrides": {
 		"svelte-preprocess": {
