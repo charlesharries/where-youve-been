@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-vercel": "^6.3.3",
-		"@sveltejs/kit": "^2.59.0",
+		"@sveltejs/kit": "^2.59.1",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@types/mapbox__polyline": "^1.0.5",
 		"@types/mapbox-gl": "^3.5.0",
